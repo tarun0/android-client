@@ -95,6 +95,7 @@
     <string name="pinpoint">Pinpoint location</string>
     <string name="charges">Charges </string>
     <string name="add_loan">Add Loan Account</string>
+    <string name="bulk_jlg_loan">Bulk JLG Loan Application</string>
     <string name="savings_account">Add Savings Account</string>
     <string name="savings_account_id">Savings Account Id</string>
     <string name="collection_sheet">Collection Sheet</string>

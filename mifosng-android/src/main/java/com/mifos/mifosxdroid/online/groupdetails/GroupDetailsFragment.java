@@ -167,6 +167,16 @@ public class GroupDetailsFragment extends MifosBaseFragment implements GroupDeta
         fragmentTransaction.commit();
     }
 
+    private void loadBulkJLGapplicationFragment() {
+        GroupLoanAccountFragment grouploanAccountFragment = GroupLoanAccountFragment.newInstance
+                (groupId);
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager()
+                .beginTransaction();
+        fragmentTransaction.addToBackStack(FragmentConstants.FRAG_GROUP_DETAILS);
+        fragmentTransaction.replace(R.id.container, grouploanAccountFragment);
+        fragmentTransaction.commit();
+    }
+
     public void addGroupLoanAccount() {
         GroupLoanAccountFragment grouploanAccountFragment = GroupLoanAccountFragment.newInstance
                 (groupId);
@@ -324,6 +334,9 @@ public class GroupDetailsFragment extends MifosBaseFragment implements GroupDeta
                 break;
             case R.id.group_notes:
                 loadNotes();
+                break;
+            case R.id.add_bulk_jlg:
+                loadBulkJLGapplicationFragment();
                 break;
 
         }

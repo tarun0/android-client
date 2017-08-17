@@ -20,6 +20,13 @@
         android:enabled="true"
         android:title="@string/add_loan"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/add_bulk_jlg"
+        android:enabled="true"
+        android:title="@string/bulk_jlg_loan"
+        app:showAsAction="never" />
+
     <item
         android:id="@+id/documents"
         android:enabled="true"
