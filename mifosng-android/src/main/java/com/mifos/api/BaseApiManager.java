@@ -16,6 +16,7 @@ import com.mifos.api.services.CollectionSheetService;
 import com.mifos.api.services.DataTableService;
 import com.mifos.api.services.DocumentService;
 import com.mifos.api.services.GroupService;
+import com.mifos.api.services.JLGService;
 import com.mifos.api.services.LoanService;
 import com.mifos.api.services.NoteService;
 import com.mifos.api.services.OfficeService;
@@ -58,6 +59,7 @@ public class BaseApiManager {
     private static RunReportsService runreportsService;
     private static NoteService noteService;
     private static CollectionSheetService collectionSheetService;
+    private static JLGService jlgService;
 
     public BaseApiManager() {
         createService();
@@ -81,6 +83,7 @@ public class BaseApiManager {
         runreportsService = createApi(RunReportsService.class);
         noteService = createApi(NoteService.class);
         collectionSheetService = createApi(CollectionSheetService.class);
+        jlgService = createApi(JLGService.class);
     }
 
     private static <T> T createApi(Class<T> clazz) {
@@ -168,5 +171,9 @@ public class BaseApiManager {
 
     public CollectionSheetService getCollectionSheetApi() {
         return collectionSheetService;
+    }
+
+    public JLGService getJlgApi() {
+        return jlgService;
     }
 }

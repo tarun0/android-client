@@ -12,6 +12,7 @@ import com.mifos.api.datamanager.DataManagerCollectionSheet;
 import com.mifos.api.datamanager.DataManagerDataTable;
 import com.mifos.api.datamanager.DataManagerDocument;
 import com.mifos.api.datamanager.DataManagerGroups;
+import com.mifos.api.datamanager.DataManagerJLG;
 import com.mifos.api.datamanager.DataManagerLoan;
 import com.mifos.api.datamanager.DataManagerNote;
 import com.mifos.api.datamanager.DataManagerOffices;
@@ -71,6 +72,7 @@ public interface ApplicationComponent {
     DataManagerAuth dataManagerAuth();
     DataManagerNote dataManagerNote();
     DataManagerCollectionSheet dataManagerCollectionSheet();
+    DataManagerJLG dataManagerJLG();
 
 
     DatabaseHelperClient databaseHelperClient();

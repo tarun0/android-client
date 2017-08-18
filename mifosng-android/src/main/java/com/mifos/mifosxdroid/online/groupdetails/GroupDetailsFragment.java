@@ -31,6 +31,7 @@ import com.mifos.mifosxdroid.online.activate.ActivateFragment;
 import com.mifos.mifosxdroid.online.datatable.DataTableFragment;
 import com.mifos.mifosxdroid.online.documentlist.DocumentListFragment;
 import com.mifos.mifosxdroid.online.grouploanaccount.GroupLoanAccountFragment;
+import com.mifos.mifosxdroid.online.lbulkJLG.GroupBulkJLGLoanFragment;
 import com.mifos.mifosxdroid.online.note.NoteFragment;
 import com.mifos.objects.accounts.GroupAccounts;
 import com.mifos.objects.accounts.savings.DepositType;
@@ -167,13 +168,13 @@ public class GroupDetailsFragment extends MifosBaseFragment implements GroupDeta
         fragmentTransaction.commit();
     }
 
-    private void loadBulkJLGapplicationFragment() {
-        GroupLoanAccountFragment grouploanAccountFragment = GroupLoanAccountFragment.newInstance
+    private void loadBulkJLGFragment() {
+        GroupBulkJLGLoanFragment groupBulkJLGLoanFragment = GroupBulkJLGLoanFragment.newInstance
                 (groupId);
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager()
                 .beginTransaction();
         fragmentTransaction.addToBackStack(FragmentConstants.FRAG_GROUP_DETAILS);
-        fragmentTransaction.replace(R.id.container, grouploanAccountFragment);
+        fragmentTransaction.replace(R.id.container, groupBulkJLGLoanFragment);
         fragmentTransaction.commit();
     }
 
@@ -336,7 +337,7 @@ public class GroupDetailsFragment extends MifosBaseFragment implements GroupDeta
                 loadNotes();
                 break;
             case R.id.add_bulk_jlg:
-                loadBulkJLGapplicationFragment();
+                loadBulkJLGFragment();
                 break;
 
         }
