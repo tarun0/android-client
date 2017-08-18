@@ -69,16 +69,7 @@ public class GroupBulkJLGLoanPresenter extends BasePresenter<GroupBulkJLGLoanMvp
                     @Override
                     public void onError(Throwable e) {
                         getMvpView().showProgressbar(false);
-                        try {
-                            if (e instanceof HttpException) {
-                                String errorMessage = ((HttpException) e).response().errorBody()
-                                        .string();
-                                getMvpView().showError(MFErrorParser.parseError(errorMessage)
-                                        .getErrors().get(0).getDefaultUserMessage());
-                            }
-                        } catch (Throwable throwable) {
-                            RxJavaPlugins.getInstance().getErrorHandler().handleError(e);
-                        }
+                        getMvpView().showError(MFErrorParser.errorMessage(e));
                     }
 
                     @Override

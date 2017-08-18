@@ -80,10 +80,10 @@ public class GroupBulkJLGLoanFragment extends MifosBaseFragment implements Group
     private void inflateJLGProductSpinner() {
         ArrayList<String> productNames = new ArrayList<>();
         productOptionsMap = presenter.filterProducts(jlgBulkProductsTemplate.getProductOptions(),
-               productNames);
-
-        productNamesAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item,
                 productNames);
+
+        productNamesAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item, productNames);
         productNamesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spProduct.setAdapter(productNamesAdapter);
         spProduct.setOnItemSelectedListener(this);
