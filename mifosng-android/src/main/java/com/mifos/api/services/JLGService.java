@@ -1,6 +1,7 @@
 package com.mifos.api.services;
 
 import com.mifos.api.model.APIEndPoint;
+import com.mifos.objects.templates.jlg.JlgBulkLoanTemplate;
 import com.mifos.objects.templates.jlg.JlgBulkProductsTemplate;
 
 import retrofit2.http.GET;
@@ -17,5 +18,12 @@ public interface JLGService {
     Observable<JlgBulkProductsTemplate> getJLGProducts(
             @Query("groupId") int groupId,
             @Query("lendingStrategy") int lendingStrategy,
+            @Query("templateType") String templateType);
+
+    @GET(APIEndPoint.LOANS + "/template")
+    Observable<JlgBulkLoanTemplate> getJLGLoanTemplate(
+            @Query("groupId") int groupId,
+            @Query("lendingStrategy") int lendingStrategy,
+            @Query("productId") int productId,
             @Query("templateType") String templateType);
 }

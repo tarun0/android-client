@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 import com.mifos.objects.accounts.loan.AccountLinkingOptions;
+import com.mifos.objects.jlg.FundOptionsJLG;
+import com.mifos.objects.jlg.GroupJLG;
+import com.mifos.objects.jlg.LoanPurposeOptions;
 import com.mifos.objects.templates.loans.AmortizationType;
 import com.mifos.objects.templates.loans.AmortizationTypeOptions;
 import com.mifos.objects.templates.loans.CalendarOptions;
@@ -13,8 +16,6 @@ import com.mifos.objects.templates.loans.Charges;
 import com.mifos.objects.templates.loans.Currency;
 import com.mifos.objects.templates.loans.DaysInMonthType;
 import com.mifos.objects.templates.loans.DaysInYearType;
-import com.mifos.objects.templates.loans.FundOptions;
-import com.mifos.objects.templates.loans.Group;
 import com.mifos.objects.templates.loans.InterestCalculationPeriodType;
 import com.mifos.objects.templates.loans.InterestCalculationPeriodTypeOptions;
 import com.mifos.objects.templates.loans.InterestRateFrequencyType;
@@ -23,7 +24,6 @@ import com.mifos.objects.templates.loans.InterestType;
 import com.mifos.objects.templates.loans.InterestTypeOptions;
 import com.mifos.objects.templates.loans.LoanCollateralOptions;
 import com.mifos.objects.templates.loans.LoanOfficerOptions;
-import com.mifos.objects.templates.loans.LoanPurposeOptions;
 import com.mifos.objects.templates.loans.OverdueCharges;
 import com.mifos.objects.templates.loans.Product;
 import com.mifos.objects.templates.loans.ProductOptions;
@@ -81,9 +81,9 @@ public class JlgBulkLoanTemplate implements Parcelable {
 
     private String fundName;
 
-    private List<FundOptions> fundOptions;
+    private List<FundOptionsJLG> fundOptions;
 
-    private Group group;
+    private GroupJLG group;
 
     private InterestCalculationPeriodType interestCalculationPeriodType;
 
@@ -149,13 +149,13 @@ public class JlgBulkLoanTemplate implements Parcelable {
 
     private RepaymentFrequencyType repaymentFrequencyType;
 
-    private RepaymentFrequencyTypeOptions repaymentFrequencyTypeOptions;
+    private List<RepaymentFrequencyTypeOptions> repaymentFrequencyTypeOptions;
 
     private int termFrequency;
 
     private List<TermFrequencyTypeOptions> termFrequencyTypeOptions;
 
-    private List<TermPeriodFrequencyType> termPeriodFrequencyType;
+    private TermPeriodFrequencyType termPeriodFrequencyType;
 
     private Timeline timeline;
 
@@ -299,19 +299,19 @@ public class JlgBulkLoanTemplate implements Parcelable {
         this.fundName = fundName;
     }
 
-    public List<FundOptions> getFundOptions() {
+    public List<FundOptionsJLG> getFundOptions() {
         return fundOptions;
     }
 
-    public void setFundOptions(List<FundOptions> fundOptions) {
+    public void setFundOptionsJLG(List<FundOptionsJLG> fundOptions) {
         this.fundOptions = fundOptions;
     }
 
-    public Group getGroup() {
+    public GroupJLG getGroup() {
         return group;
     }
 
-    public void setGroup(Group group) {
+    public void setGroup(GroupJLG group) {
         this.group = group;
     }
 
@@ -577,11 +577,11 @@ public class JlgBulkLoanTemplate implements Parcelable {
         this.repaymentFrequencyType = repaymentFrequencyType;
     }
 
-    public RepaymentFrequencyTypeOptions getRepaymentFrequencyTypeOptions() {
+    public List<RepaymentFrequencyTypeOptions> getRepaymentFrequencyTypeOptions() {
         return repaymentFrequencyTypeOptions;
     }
 
-    public void setRepaymentFrequencyTypeOptions(RepaymentFrequencyTypeOptions
+    public void setRepaymentFrequencyTypeOptions(List<RepaymentFrequencyTypeOptions>
                                                          repaymentFrequencyTypeOptions) {
         this.repaymentFrequencyTypeOptions = repaymentFrequencyTypeOptions;
     }
@@ -603,11 +603,11 @@ public class JlgBulkLoanTemplate implements Parcelable {
         this.termFrequencyTypeOptions = termFrequencyTypeOptions;
     }
 
-    public List<TermPeriodFrequencyType> getTermPeriodFrequencyType() {
+    public TermPeriodFrequencyType getTermPeriodFrequencyType() {
         return termPeriodFrequencyType;
     }
 
-    public void setTermPeriodFrequencyType(List<TermPeriodFrequencyType> termPeriodFrequencyType) {
+    public void setTermPeriodFrequencyType(TermPeriodFrequencyType termPeriodFrequencyType) {
         this.termPeriodFrequencyType = termPeriodFrequencyType;
     }
 
@@ -636,6 +636,9 @@ public class JlgBulkLoanTemplate implements Parcelable {
         this.transactionProcessingStrategyOptions = transactionProcessingStrategyOptions;
     }
 
+
+    public JlgBulkLoanTemplate() {
+    }
 
     @Override
     public int describeContents() {
@@ -699,16 +702,13 @@ public class JlgBulkLoanTemplate implements Parcelable {
         dest.writeTypedList(this.repaymentFrequencyDaysOfWeekTypeOptions);
         dest.writeTypedList(this.repaymentFrequencyNthDayTypeOptions);
         dest.writeParcelable(this.repaymentFrequencyType, flags);
-        dest.writeParcelable(this.repaymentFrequencyTypeOptions, flags);
+        dest.writeTypedList(this.repaymentFrequencyTypeOptions);
         dest.writeInt(this.termFrequency);
         dest.writeTypedList(this.termFrequencyTypeOptions);
-        dest.writeTypedList(this.termPeriodFrequencyType);
+        dest.writeParcelable(this.termPeriodFrequencyType, flags);
         dest.writeParcelable(this.timeline, flags);
         dest.writeInt(this.transactionProcessingStrategyId);
         dest.writeTypedList(this.transactionProcessingStrategyOptions);
-    }
-
-    public JlgBulkLoanTemplate() {
     }
 
     protected JlgBulkLoanTemplate(Parcel in) {
@@ -729,19 +729,14 @@ public class JlgBulkLoanTemplate implements Parcelable {
         this.daysInYearType = in.readParcelable(DaysInYearType.class.getClassLoader());
         this.fundId = in.readInt();
         this.fundName = in.readString();
-        this.fundOptions = in.createTypedArrayList(FundOptions.CREATOR);
-        this.group = in.readParcelable(Group.class.getClassLoader());
-        this.interestCalculationPeriodType = in
-                .readParcelable(InterestCalculationPeriodType.class.getClassLoader());
-        this.interestCalculationPeriodTypeOptions = in
-                .createTypedArrayList(InterestCalculationPeriodTypeOptions.CREATOR);
-        this.interestRateFrequencyType = in
-                .readParcelable(InterestRateFrequencyType.class.getClassLoader());
-        this.interestRateFrequencyTypeOptions = in
-                .createTypedArrayList(InterestRateFrequencyTypeOptions.CREATOR);
+        this.fundOptions = in.createTypedArrayList(FundOptionsJLG.CREATOR);
+        this.group = in.readParcelable(GroupJLG.class.getClassLoader());
+        this.interestCalculationPeriodType = in.readParcelable(InterestCalculationPeriodType.class.getClassLoader());
+        this.interestCalculationPeriodTypeOptions = in.createTypedArrayList(InterestCalculationPeriodTypeOptions.CREATOR);
+        this.interestRateFrequencyType = in.readParcelable(InterestRateFrequencyType.class.getClassLoader());
+        this.interestRateFrequencyTypeOptions = in.createTypedArrayList(InterestRateFrequencyTypeOptions.CREATOR);
         this.interestRatePerPeriod = in.readInt();
-        this.interestRecalculationData = in
-                .readParcelable(InterestCalculateRateData.class.getClassLoader());
+        this.interestRecalculationData = in.readParcelable(InterestCalculateRateData.class.getClassLoader());
         this.interestType = in.readParcelable(InterestType.class.getClassLoader());
         this.interestTypeOptions = in.createTypedArrayList(InterestTypeOptions.CREATOR);
         this.isFloatingInterestRate = in.readByte() != 0;
@@ -771,21 +766,16 @@ public class JlgBulkLoanTemplate implements Parcelable {
         this.productOptions = in.createTypedArrayList(ProductOptions.CREATOR);
         this.proposedPrincipal = (Double) in.readValue(Double.class.getClassLoader());
         this.repaymentEvery = in.readInt();
-        this.repaymentFrequencyDaysOfWeekTypeOptions = in
-                .createTypedArrayList(RepaymentFrequencyDaysOfWeekTypeOptions.CREATOR);
-        this.repaymentFrequencyNthDayTypeOptions = in
-                .createTypedArrayList(RepaymentFrequencyNthDayTypeOptions.CREATOR);
-        this.repaymentFrequencyType = in
-                .readParcelable(RepaymentFrequencyType.class.getClassLoader());
-        this.repaymentFrequencyTypeOptions = in
-                .readParcelable(RepaymentFrequencyTypeOptions.class.getClassLoader());
+        this.repaymentFrequencyDaysOfWeekTypeOptions = in.createTypedArrayList(RepaymentFrequencyDaysOfWeekTypeOptions.CREATOR);
+        this.repaymentFrequencyNthDayTypeOptions = in.createTypedArrayList(RepaymentFrequencyNthDayTypeOptions.CREATOR);
+        this.repaymentFrequencyType = in.readParcelable(RepaymentFrequencyType.class.getClassLoader());
+        this.repaymentFrequencyTypeOptions = in.createTypedArrayList(RepaymentFrequencyTypeOptions.CREATOR);
         this.termFrequency = in.readInt();
         this.termFrequencyTypeOptions = in.createTypedArrayList(TermFrequencyTypeOptions.CREATOR);
-        this.termPeriodFrequencyType = in.createTypedArrayList(TermPeriodFrequencyType.CREATOR);
+        this.termPeriodFrequencyType = in.readParcelable(TermPeriodFrequencyType.class.getClassLoader());
         this.timeline = in.readParcelable(Timeline.class.getClassLoader());
         this.transactionProcessingStrategyId = in.readInt();
-        this.transactionProcessingStrategyOptions = in
-                .createTypedArrayList(TransactionProcessingStrategyOptions.CREATOR);
+        this.transactionProcessingStrategyOptions = in.createTypedArrayList(TransactionProcessingStrategyOptions.CREATOR);
     }
 
     public static final Creator<JlgBulkLoanTemplate> CREATOR = new Creator<JlgBulkLoanTemplate>() {

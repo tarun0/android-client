@@ -226,6 +226,9 @@
     <string name="receipt_number">Receipt Number</string>
     <string name="bank_number">Bank Number</string>
 
+    <!-- JLG related strings -->
+    <string name="original_loan">Original Loan</string>
+
     <!-- Loan Related Terminologies Begin Here -->
     <string name="loan_officer">Loan Officer</string>
     <string name="loan_purposes">Loan Purposes</string>

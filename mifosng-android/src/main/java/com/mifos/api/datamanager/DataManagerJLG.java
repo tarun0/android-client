@@ -1,6 +1,7 @@
 package com.mifos.api.datamanager;
 
 import com.mifos.api.BaseApiManager;
+import com.mifos.objects.templates.jlg.JlgBulkLoanTemplate;
 import com.mifos.objects.templates.jlg.JlgBulkProductsTemplate;
 
 import javax.inject.Inject;
@@ -22,8 +23,15 @@ public class DataManagerJLG {
         this.baseApiManager = baseApiManager;
     }
 
-    public Observable<JlgBulkProductsTemplate> getJLGProducts(int groupId, int lendingStrategy, String templateType) {
+    public Observable<JlgBulkProductsTemplate> getJLGProducts(int groupId, int lendingStrategy,
+                                                              String templateType) {
         return baseApiManager.getJlgApi().getJLGProducts(groupId, lendingStrategy, templateType);
+    }
+
+    public Observable<JlgBulkLoanTemplate> getJLGLoanTemplate (int groupId, int lendingStrategy,
+                                                               int productId, String templateType) {
+        return baseApiManager.getJlgApi()
+                .getJLGLoanTemplate(groupId, lendingStrategy, productId, templateType);
     }
 
 }
